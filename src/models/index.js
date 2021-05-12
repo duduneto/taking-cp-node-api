@@ -1,12 +1,12 @@
-//Libs Nativas do Node
-const fs = require('fs');
-const path = require('path');
-// ------------------
 const Sequelize = require('sequelize');
 
-
 const config = require('../config/database').development;
+
 const db = {};
+
+const models = [
+    require('../models/user'),
+]
 
 const sequelize = new Sequelize(
     config.database,
@@ -14,20 +14,19 @@ const sequelize = new Sequelize(
     config.password,
     config,
 );
-const models = [
-    require('../models/user'),
-]
-
+/**
+ * db = {
+ *  User: ...
+ * }
+ */
 models.forEach((notInitializedModel) => {
     const model = notInitializedModel(sequelize, Sequelize.DataTypes)
     db[model.name] = model;
-});
-
-Object.keys(db).forEach((modelName) => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
+    if(db[model.name].associate) {
+        db[model.name].associate(db);
     }
 });
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
