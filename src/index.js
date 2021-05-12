@@ -6,10 +6,11 @@ const userRoutes = require('./routes/users')
 
 require('./config/sequelize');
 
+// Criar uma codificação padrão para as URL (Sanitizar URL's)
 app.use(express.urlencoded({
     extended: true
 }));
-
+// Conseguir ler o corpo das requisições
 app.use(express.json());
 
 app.use('/user', userRoutes);

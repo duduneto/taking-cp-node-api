@@ -13,16 +13,17 @@ const create = async (request, response) => {
             throw new Error('Usuário já existe');
         }
 
-        const reqPass = crypto.createHash('md5').update(password).digest('hex');
+        const encryptedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
-        const db_content = {
+        const doc_content = {
             email,
             firstName,
             lastName,
-            password: reqPass,
+            password: encryptedPassword,
         };
 
-        const newUser = await User.create(db_content);
+        const newUser = await User.create(doc_content);
+        delete newUser.dataValues.password
         return response.status(201).json(newUser)
     } catch (error) {
         return response.status(403).json({ error: true, errorMessage: error.message })
