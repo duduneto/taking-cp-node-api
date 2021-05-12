@@ -1,9 +1,18 @@
 const express = require('express');
 const app = express();
 
-app.get('/api', function(resquest, response) {
-    response.send('<h1>Hellow Takers</h1>')
-})
+//Routes
+const userRoutes = require('./routes/users')
+
+require('./config/sequelize');
+
+app.use(express.urlencoded({
+    extended: true
+}));
+
+app.use(express.json());
+
+app.use('/user', userRoutes);
 
 app.listen(3333, function() {
     console.log('Server is running')
