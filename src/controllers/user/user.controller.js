@@ -35,10 +35,11 @@ const login = async (request, response) => {
     const user = await User.findOne({
       where: { email: request.body.email },
     });
-    if (!user) {
+    
+    if (!!user === false) {
       throw new Error('Senha ou email incorreto');
     }
-    const reqPass = crypto.createHash('md5').update(request.body.password || '').digest('hex');
+    const reqPass = crypto.createHash('sha256').update(request.body.password || '').digest('hex');
 
     if (reqPass !== user.password) {
       throw new Error('Senha ou email incorreto');
@@ -55,6 +56,7 @@ const login = async (request, response) => {
     delete user.dataValues.password;
     return response.status(200).json({ user, token });
   } catch (error) {
+    console.log('Error => ', error)
     return response.status(403).json({ error: true, errorMessage: error.message });
   }
 };
