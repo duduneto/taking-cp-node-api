@@ -1,7 +1,8 @@
-const fs =  require('fs');
+const fs = require('fs');
 
 const create = (request, response) => {
-    return response.json({url: `http://localhost:3333/post/${request.file.filename}`})
+    const { title, description } = JSON.parse(request.body.info);
+    return response.json({ url: `http://localhost:3333/post/${request.file.filename}`, title, description})
 };
 
 const read = (request, response) => {
@@ -30,4 +31,4 @@ const read = (request, response) => {
     }
 };
 
-module.exports = {create, read}
+module.exports = { create, read }
