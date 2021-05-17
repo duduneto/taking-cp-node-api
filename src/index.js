@@ -1,8 +1,12 @@
+var path = require('path');
+global.uploads = path.resolve(__dirname+"/uploads");
+
 const express = require('express');
 const app = express();
 
 //Routes
-const userRoutes = require('./routes/users')
+const userRoutes = require('./routes/users');
+const postRoutes = require('./routes/posts');
 
 require('./config/sequelize');
 
@@ -14,6 +18,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 app.use('/user', userRoutes);
+app.use('/post', postRoutes);
 
 app.listen(3333, function() {
     console.log('Server is running')
