@@ -1,5 +1,5 @@
 var path = require('path');
-global.uploads = path.resolve(__dirname+"/uploads");
+global.post_uploads_dir = path.resolve(__dirname+"/uploads");
 
 const express = require('express');
 const app = express();

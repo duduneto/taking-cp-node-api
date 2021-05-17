@@ -6,7 +6,7 @@ const create = (request, response) => {
 };
 
 const read = (request, response) => {
-    const filePath = uploads + "/" + request.params.audio_id;
+    const filePath = post_uploads_dir + "/" + request.params.audio_id;
     var stat = fs.statSync(filePath);
     var total = stat.size;
 
