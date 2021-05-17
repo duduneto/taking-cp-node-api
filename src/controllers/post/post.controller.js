@@ -1,8 +1,9 @@
 const fs = require('fs');
 
 const create = (request, response) => {
-    const { title, description } = JSON.parse(request.body.info);
-    return response.json({ url: `http://localhost:3333/post/${request.file.filename}`, title, description})
+    const json_info = JSON.parse(request.body.info);
+    // ...
+    return response.json({ url: `http://localhost:3333/post/${request.file.filename}`, title: json_info.title, description: json_info.description})
 };
 
 const read = (request, response) => {
