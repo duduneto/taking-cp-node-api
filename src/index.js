@@ -1,7 +1,7 @@
 var path = require('path');
 global.post_uploads_dir = path.resolve(__dirname+"/uploads");
 
-// const cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const app = express();
 
@@ -13,7 +13,7 @@ const postRoutes = require('./routes/posts');
 require('./config/sequelize');
 
 // Habilitando o Cors
-// app.use(cors());
+app.use(cors());
 
 // Criar uma codificação padrão para as URL (Sanitizar URL's)
 app.use(express.urlencoded({

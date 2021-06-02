@@ -1,9 +1,15 @@
 const fs = require('fs');
+const { Posts } = require('../../models')
 
-const create = (request, response) => {
+const create = async (request, response) => {
     const json_info = JSON.parse(request.body.info);
+    const createdPost = await Posts.create({
+        title: json_info.title,
+        description: json_info.description,
+        uri: `http://localhost:3333/post/${request.file.filename}`
+    })
     // ...
-    return response.json({ url: `http://localhost:3333/post/${request.file.filename}`, title: json_info.title, description: json_info.description})
+    return response.json(createdPost)
 };
 
 const read = (request, response) => {
@@ -32,4 +38,17 @@ const read = (request, response) => {
     }
 };
 
-module.exports = { create, read }
+const list = async (request, response) => {
+    try {
+        
+        const posts = await Posts.findAll();
+    
+        return response.json(posts)
+    } catch (error) {
+        console.log('Posts List => ', error)
+        return response.status(500).json({error: true, errorMessage: error.message})        
+    }
+
+}
+
+module.exports = { create, read, list }

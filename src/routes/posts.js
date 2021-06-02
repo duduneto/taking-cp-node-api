@@ -10,6 +10,9 @@ const router = express.Router();
 // Post routes
 //= ===============================
 
+router.get('/',
+  postController.list
+);
 router.get('/:audio_id',
   postController.read
 );

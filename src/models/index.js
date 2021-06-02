@@ -6,6 +6,7 @@ const db = {};
 
 const models = [
     require('../models/user'),
+    require('../models/posts'),
 ]
 
 const sequelize = new Sequelize(

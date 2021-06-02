@@ -32,6 +32,12 @@ const create = async (request, response) => {
 
 const login = async (request, response) => {
   try {
+    function sleep() {
+      return new Promise(function(resolve) {
+        setTimeout(resolve, 1000)
+      })
+    }
+    await sleep();
     const user = await User.findOne({
       where: { email: request.body.email },
     });
