@@ -16,6 +16,11 @@ router.post(
 );
 
 router.post(
+  '/validate_token',
+  userController.validToken,
+);
+
+router.post(
   '/login',
   valid_login,
   userController.login,
