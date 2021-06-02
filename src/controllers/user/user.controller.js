@@ -74,6 +74,7 @@ const validToken = async (request, response) => {
       if (!err) {
         return response.status(200).json({
           token: token,
+          user: decoded.user,
           valid: true
         })
       } else {
